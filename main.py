@@ -30,10 +30,13 @@ def split_chunk(var):
     var = var[::-1]
     return ' '.join([var[i:i + n] for i in range(0, len(var), n)])[::-1]
 
-def load_config(file):
-    with open('config.json', 'r') as file:
-        config = json.load(file)
-    return config
+def load_config(gist_url):
+    response = requests.get(gist_url)
+    if response.status_code == 200:
+        config = json.loads(response.text)
+        return config
+    else:
+        raise RuntimeError(f"Failed to fetch config from Gist: {response.status_code} - {response.reason}")
 
 async def main():
     """Main asynchronous function to run the Pixelverse bot."""
@@ -42,7 +45,7 @@ async def main():
 
     while True:
         try:
-            configs = load_config("config.json")
+            configs = load_config("")
             for data in configs:
                 user = UserPixel(data)
                 userInfo = user.getUser()
