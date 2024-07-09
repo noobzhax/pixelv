@@ -1,7 +1,16 @@
+[
 {
-  "secret": "",
-  "tgId": "",
-  "initData": "",
-  "hitRate": 0.1,
+  "initData": "query_id=AAHfjsEtAAAAAN-OwS0ZH2e6&user=%7B%22id%22%3A767659743%2C%22first_name%22%3A%220byte%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Tukangremote%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1720533780&hash=0204d3eb3ed84a5702fd18e695517e9e8c2089af181466f00a34f1a0a519420c",
+  "secret": "49af19542859fa494648ee7c77950e6d7eccdc0058c9fc270f470e140b2c7f92",
+  "tgId": "767659743",
+  "hitRate": 0.08,
+  "auto_upgrade": true
+},
+  {
+  "initData": "query_id=AAE2r1YjAwAAADavViPgsfRW&user=%7B%22id%22%3A7035334454%2C%22first_name%22%3A%22%E1%B4%8A%E1%B4%80%CA%8F%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22of_jayz%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1720532152&hash=aa877c53ca140d137e50379ad550e1fb4bcd56b96f53a047d931b7b608fe1fa8",
+  "secret": "415a53b9e76b356ed4449e7884edba5ffc4068525c2e4ab5671aca98f4061320",
+  "tgId": "7035334454",
+  "hitRate": 0.08,
   "auto_upgrade": true
 }
+]

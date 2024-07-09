@@ -30,56 +30,63 @@ def split_chunk(var):
     var = var[::-1]
     return ' '.join([var[i:i + n] for i in range(0, len(var), n)])[::-1]
 
+def load_config(file):
+    with open('config.json', 'r') as file:
+        config = json.load(file)
+    return config
+
 async def main():
     """Main asynchronous function to run the Pixelverse bot."""
     
     init()
-    user = UserPixel()
 
     while True:
         try:
-            userInfo = user.getUser()
-            stats = user.getStats()
+            configs = load_config("config.json")
+            for data in configs:
+                user = UserPixel(data)
+                userInfo = user.getUser()
+                stats = user.getStats()
 
-            message = f"""
-                                        {Back.MAGENTA}{Fore.WHITE}PixelBot{Style.RESET_ALL} | Made by {Back.MAGENTA + Fore.WHITE}S1NJED{Style.RESET_ALL}
+                message = f"""
+                                            {Back.MAGENTA}{Fore.WHITE}PixelBot{Style.RESET_ALL} | Made by {Back.MAGENTA + Fore.WHITE}S1NJED{Style.RESET_ALL}
 
-                                            Support me please :)
-                                {Fore.GREEN}$USDT{Style.RESET_ALL} (ERC20 or BEP20): {Back.WHITE + Fore.BLACK}0x0A9072E3C4Fae8e239Db12B3287eF88A3e9Da5A2{Style.RESET_ALL}
+                                                Support me please :)
+                                    {Fore.GREEN}$USDT{Style.RESET_ALL} (ERC20 or BEP20): {Back.WHITE + Fore.BLACK}0x0A9072E3C4Fae8e239Db12B3287eF88A3e9Da5A2{Style.RESET_ALL}
 
-                                            Logged in as {Style.BRIGHT + Fore.GREEN}{userInfo['username']}{Style.RESET_ALL}{Fore.GREEN + Style.BRIGHT}
+                                                Logged in as {Style.BRIGHT + Fore.GREEN}{userInfo['username']}{Style.RESET_ALL}{Fore.GREEN + Style.BRIGHT}
 
-    ============================================== {Style.RESET_ALL} {Back.YELLOW + Fore.BLACK}STATS{Style.RESET_ALL} {Fore.GREEN + Style.BRIGHT} ==============================================  {Style.RESET_ALL}
+        ============================================== {Style.RESET_ALL} {Back.YELLOW + Fore.BLACK}STATS{Style.RESET_ALL} {Fore.GREEN + Style.BRIGHT} ==============================================  {Style.RESET_ALL}
 
-                                            > {Back.YELLOW + Fore.BLACK}Balance{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(int(userInfo['clicksCount'])))}{Style.RESET_ALL}
+                                                > {Back.YELLOW + Fore.BLACK}Balance{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(int(userInfo['clicksCount'])))}{Style.RESET_ALL}
 
-                                            > battlesCount{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(stats['battlesCount']))}{Style.RESET_ALL}
-                                            > {Back.GREEN}Wins{Style.RESET_ALL}:         {Style.BRIGHT}{split_chunk(str(stats['wins']))}{Style.RESET_ALL}
-                                            > {Back.RED}Loses{Style.RESET_ALL}:        {Style.BRIGHT}{split_chunk(str(stats['loses']))}{Style.RESET_ALL}
-                                            > {Back.GREEN}Money Won{Style.RESET_ALL}:    {Style.BRIGHT}{split_chunk(str(stats['winsReward']))}{Style.RESET_ALL}
-                                            > {Back.RED}Money Lost{Style.RESET_ALL}:   {Style.BRIGHT}-{split_chunk(str(abs(stats['losesReward'])))}{Style.RESET_ALL}
-                                            > {Back.GREEN}Total earned{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(stats['winsReward'] - stats['losesReward']))}{Style.RESET_ALL}
+                                                > battlesCount{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(stats['battlesCount']))}{Style.RESET_ALL}
+                                                > {Back.GREEN}Wins{Style.RESET_ALL}:         {Style.BRIGHT}{split_chunk(str(stats['wins']))}{Style.RESET_ALL}
+                                                > {Back.RED}Loses{Style.RESET_ALL}:        {Style.BRIGHT}{split_chunk(str(stats['loses']))}{Style.RESET_ALL}
+                                                > {Back.GREEN}Money Won{Style.RESET_ALL}:    {Style.BRIGHT}{split_chunk(str(stats['winsReward']))}{Style.RESET_ALL}
+                                                > {Back.RED}Money Lost{Style.RESET_ALL}:   {Style.BRIGHT}-{split_chunk(str(abs(stats['losesReward'])))}{Style.RESET_ALL}
+                                                > {Back.GREEN}Total earned{Style.RESET_ALL}: {Style.BRIGHT}{split_chunk(str(stats['winsReward'] - stats['losesReward']))}{Style.RESET_ALL}
 
-            """
-            print(message)
+                """
+                print(message)
 
-            # Read config file 
-            with open('./config.json', 'r') as config_file:
-                config = json.load(config_file)
+                # Read config file 
+                # with open('./config.json', 'r') as config_file:
+                #     config = json.load(config_file)
 
 
-            # Battle logic 
-            battle = Battle()
-            await battle.connect()
-            del battle
+                # # Battle logic 
+                # battle = Battle(data)
+                # await battle.connect()
+                # del battle
 
-            user.claim()
-            user.upgradePets(auto_upgrade=config['auto_upgrade'])  # Pass auto_upgrade choice
+                user.claim()
+                user.upgradePets(auto_upgrade=data['auto_upgrade'])  # Pass auto_upgrade choice
 
-            timeToWait = randint(5, 10)
-            print(f"{user.space}> Waiting {Back.RED + Fore.WHITE}{timeToWait}{Style.RESET_ALL} seconds.")
-            await asyncio.sleep(timeToWait)
-            clear()
+                timeToWait = randint(10, 120)
+                print(f"{user.space}> Waiting {Back.RED + Fore.WHITE}{timeToWait}{Style.RESET_ALL} seconds.")
+                await asyncio.sleep(timeToWait)
+                clear()
 
         except Exception as e:
             print(f"{user.space}> Encountered an error: {type(e).__name__} - {e}")

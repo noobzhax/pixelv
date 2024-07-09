@@ -9,11 +9,12 @@ from time import time
 class Battle:
     """Represents a battle session in the Pixelverse game."""
 
-    def __init__(self):
+    def __init__(self, config):
         """Initializes the Battle object with game settings."""
+        self.config = config
         self.url = 'https://api-clicker.pixelverse.xyz/api/users'
-        with open('./config.json', 'r') as file:
-            config = json.load(file)
+        # with open('./config.json', 'r') as file:
+        #     config = json.load(file)
 
         self.secret = config['secret']
         self.tgId = config['tgId']

@@ -6,10 +6,11 @@ from colorama import Fore, Back, Style
 class UserPixel:
     """Represents a user in the Pixelverse game, handling user data, actions, and interactions."""
 
-    def __init__(self):
+    def __init__(self, config):
         """Initializes the UserPixel object by loading user configuration."""
-        with open('./config.json', 'r') as file:
-            self.config = json.load(file)
+        self.config = config
+        # with open('./config.json', 'r') as file:
+        #     self.config = json.load(file)
 
         self.headers = {
             "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
