@@ -7,6 +7,7 @@ from colorama import Fore, Style, init, Back
 import os
 import time
 import sys
+import requests
 
 def clear():
     """Clears the terminal screen."""
@@ -79,9 +80,9 @@ async def main():
 
 
                 # # Battle logic 
-                # battle = Battle(data)
-                # await battle.connect()
-                # del battle
+                battle = Battle(data)
+                await battle.connect()
+                del battle
 
                 user.claim()
                 user.upgradePets(auto_upgrade=data['auto_upgrade'])  # Pass auto_upgrade choice
